@@ -1,59 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOODLUCK MLAY | Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { background-color: #0f172a; color: #f8fafc; }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GOODLUCK MLAY - Full Stack Developer & Open Source Contributor Portfolio (KPR Verse–style UI)" />
+  <title>GOODLUCK MLAY | Developer Portfolio</title>
+
+  <!-- Fonts: KPR Verse–style (modern geometric sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-0: #06070a;
+      --bg-1: #0b0d12;
+      --surface: rgba(255, 255, 255, 0.06);
+      --surface-strong: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #e8ecf1;
+      --text-muted: #9aa4b2;
+      --primary: #00e5ff;
+      --primary-2: #7a5cff;
+      --success: #4ade80;
+      --glow: 0 0 24px rgba(0, 229, 255, 0.35), 0 0 64px rgba(122, 92, 255, 0.25);
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-lg: 0 20px 60px rgba(0,0,0,.45);
+      --shadow-md: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(0,229,255,.15), transparent 60%),
+        radial-gradient(1000px 700px at 90% 0%, rgba(122,92,255,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      min-height: 100vh;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle noise for depth (optional) */
+    body::after {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(6,7,10,.75), rgba(6,7,10,.35));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: .9rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700; letter-spacing: .5px;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: .6rem;
+    }
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: var(--glow);
+    }
+    .nav-links {
+      display: flex; gap: 1.25rem; list-style: none; flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .95rem;
+      padding: .5rem .75rem;
+      border-radius: var(--radius-md);
+      transition: color .25s, background .25s, transform .25s;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface);
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; place-items: center;
+      padding: 7rem 1.25rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      max-width: 1200px; width: 100%;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-visual { order: -1; }
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--primary);
+      font-size: .8rem;
+      background: rgba(0,229,255,.08);
+      border: 1px solid rgba(0,229,255,.25);
+      padding: .4rem .7rem; border-radius: 999px;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.05;
+      margin: 1rem 0 .75rem;
+      background: linear-gradient(135deg, var(--text), var(--primary), var(--primary-2));
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      max-width: 60ch;
+    }
+    @media (max-width: 900px) { .hero p { margin: 0 auto; } }
+
+    .cta {
+      display: flex; gap: .8rem; margin-top: 1.8rem; flex-wrap: wrap;
+    }
+    @media (max-width: 900px) { .cta { justify-content: center; } }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .9rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 700; text-decoration: none;
+      letter-spacing: .3px;
+      transition: transform .25s, box-shadow .25s, background .25s, border-color .25s;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      color: #05060a;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: var(--glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.01); }
+    .btn-ghost {
+      color: var(--text);
+      background: var(--surface);
+      border-color: var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover { background: var(--surface-strong); transform: translateY(-2px); }
+
+    /* Visual orb */
+    .hero-visual {
+      position: relative; display: grid; place-items: center;
+    }
+    .orb {
+      width: min(520px, 90vw); aspect-ratio: 1/1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,229,255,.9), rgba(122,92,255,.6) 40%, rgba(0,0,0,.1) 70%);
+      filter: blur(0px);
+      box-shadow: var(--glow);
+      position: relative;
+      animation: float 8s ease-in-out infinite;
+    }
+    .orb::after {
+      content: "";
+      position: absolute; inset: 8%;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      background: radial-gradient(circle at 70% 70%, rgba(255,255,255,.08), transparent 60%);
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-14px) scale(1.02); }
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 1200px; margin: 0 auto; padding: 5rem 1.25rem;
+    }
+    .section-head {
+      display: flex; flex-direction: column; gap: .6rem; margin-bottom: 2.2rem;
+    }
+    .section-head .kicker {
+      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--primary); font-size: .8rem;
+    }
+    .section-head h2 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 800; font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+    }
+    .section-head p {
+      color: var(--text-muted); max-width: 70ch;
+    }
+
+    /* Glass cards */
+    .grid {
+      display: grid; gap: 1.25rem;
+    }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-md);
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,229,255,.45);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+    }
+    .card h3 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700; font-size: 1.25rem; margin-bottom: .5rem;
+      color: var(--text);
+    }
+    .card p { color: var(--text-muted); }
+
+    .tags {
+      display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem;
+    }
+    .tag {
+      font-size: .8rem; font-weight: 600;
+      color: var(--primary);
+      background: rgba(0,229,255,.1);
+      border: 1px solid rgba(0,229,255,.35);
+      padding: .35rem .7rem; border-radius: 999px;
+    }
+
+    /* About */
+    .about {
+      display: grid; grid-template-columns: .9fr 1.1fr; gap: 2.5rem; align-items: center;
+    }
+    @media (max-width: 900px) { .about { grid-template-columns: 1fr; } }
+    .avatar {
+      width: 100%; max-width: 360px; aspect-ratio: 1/1; margin: 0 auto;
+      border-radius: var(--radius-xl);
+      background:
+        conic-gradient(from 180deg at 50% 50%, rgba(0,229,255,.25), rgba(122,92,255,.25), rgba(0,229,255,.25));
+      border: 1px solid var(--border);
+      display: grid; place-items: center;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .avatar::before {
+      content: "👨‍💻";
+      font-size: clamp(4rem, 8vw, 6rem);
+      filter: drop-shadow(0 10px 30px rgba(0,229,255,.25));
+    }
+    .avatar::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 20%, rgba(255,255,255,.15), transparent 50%);
+    }
+
+    /* Skills */
+    .skill-card {
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .skill-card h3 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 700; color: var(--text);
+    }
+    .skill-list { list-style: none; display: grid; gap: .5rem; }
+    .skill-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .65rem .8rem;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .level {
+      font-weight: 700; font-size: .8rem;
+      color: var(--success);
+      background: rgba(74,222,128,.12);
+      border: 1px solid rgba(74,222,128,.35);
+      padding: .2rem .5rem; border-radius: 999px;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+    .contact p { color: var(--text-muted); margin-bottom: 1.5rem; }
+    .contact-links {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .8rem 1.1rem;
+      border-radius: 999px;
+      text-decoration: none; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      transition: transform .25s, background .25s, border-color .25s;
+    }
+    .contact-link:hover {
+      transform: translateY(-2px);
+      background: var(--surface-strong);
+      border-color: rgba(0,229,255,.45);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      padding: 2rem 1.25rem; margin-top: 3rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      align-items: center; justify-content: space-between;
+      color: var(--text-muted);
+    }
+    .footer-inner a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
 </head>
-<body class="font-sans">
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="GOODLUCK MLAY home">
+        <span class="brand-dot"></span>
+        GOODLUCK MLAY
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Navigation -->
-    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-2xl font-bold gradient-text">GOODLUCK MLAY</h1>
-        <div class="space-x-6">
-            <a href="#about" class="hover:text-sky-400">About</a>
-            <a href="#projects" class="hover:text-sky-400">Projects</a>
-            <a href="https://github.com" target="_blank"><i class="fab fa-github text-xl"></i></a>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">KPR Verse–inspired Portfolio</span>
+        <h1>GOODLUCK MLAY</h1>
+        <p>Full Stack Developer crafting fast, accessible, and open-source products. I build with clean code, strong UX, and a “ship often” mindset.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="https://github.com/goodluckmlay" target="_blank" rel="noopener">GitHub Profile</a>
         </div>
-    </nav>
+      </div>
+      <div class="hero-visual">
+        <div class="orb" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section class="h-screen flex flex-col justify-center items-center text-center px-4">
-        <h2 class="text-6xl md:text-8xl font-black mb-4">HELLO, I'M <span class="gradient-text">GOODLUCK.</span></h2>
-        <p class="text-xl text-slate-400 max-w-2xl text-center">Open Source Enthusiast | Tech Innovator | AI Practitioner</p>
-        <div class="mt-8">
-            <a href="#projects" class="bg-sky-500 hover:bg-sky-600 px-8 py-3 rounded-full font-bold transition">View My Work</a>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-head reveal">
+      <span class="kicker">About</span>
+      <h2>Building in public. Learning out loud.</h2>
+      <p>I’m GOODLUCK MLAY — passionate about open source, developer education, and shipping polished web experiences. I care about performance, accessibility, and documentation that helps others grow.</p>
+    </div>
+    <div class="about reveal">
+      <div class="avatar" aria-hidden="true"></div>
+      <div class="card">
+        <h3>Mission</h3>
+        <p>Make technology accessible through open-source tools, clear tutorials, and community-driven projects. I enjoy collaborating across disciplines and turning complex ideas into simple, usable products.</p>
+        <div class="tags">
+          <span class="tag">Open Source</span>
+          <span class="tag">Web Performance</span>
+          <span class="tag">Accessibility</span>
+          <span class="tag">DX</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 max-w-6xl mx-auto px-6">
-        <h3 class="text-3xl font-bold mb-12 border-b border-slate-700 pb-2">Featured Projects</h3>
-        <div class="grid md:grid-cols-2 gap-8">
-            <!-- Project 1 -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-sky-500 transition">
-                <h4 class="text-xl font-bold mb-2">Open Knowledge Wikipedia Initiative</h4>
-                <p class="text-slate-400 mb-4">An educational project focused on democratizing tech knowledge through open-source documentation.</p>
-                <span class="text-sm text-sky-400 font-mono">#OpenSource #Documentation</span>
-            </div>
-            <!-- Project 2 -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-sky-500 transition">
-                <h4 class="text-xl font-bold mb-2">AI-Driven Portfolio</h4>
-                <p class="text-slate-400 mb-4">A high-performance portfolio built using AI architecture and modern web standards.</p>
-                <span class="text-sm text-sky-400 font-mono">#TailwindCSS #HTML5</span>
-            </div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-head reveal">
+      <span class="kicker">Projects</span>
+      <h2>Featured work</h2>
+      <p>A few projects that reflect my focus on clean UI, solid architecture, and developer-friendly documentation.</p>
+    </div>
+    <div class="grid grid-3">
+      <article class="card reveal">
+        <h3>Open Source Portfolio</h3>
+        <p>Responsive, accessible portfolio template with semantic HTML, modern CSS, and zero dependencies. Designed to be easy to fork and customize.</p>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
         </div>
-    </section>
+      </article>
+      <article class="card reveal">
+        <h3>WikiEdu Tool</h3>
+        <p>Interactive learning tool that helps newcomers understand Wikipedia editing, markup, and neutrality guidelines through guided exercises.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">MediaWiki API</span>
+        </div>
+      </article>
+      <article class="card reveal">
+        <h3>Community Dashboard</h3>
+        <p>Real-time analytics for open-source projects: contributor activity, issue velocity, and PR health—built for maintainers and community leads.</p>
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MongoDB</span>
+        </div>
+      </article>
+    </div>
+  </section>
 
-    <footer class="py-10 text-center text-slate-500 text-sm">
-        <p>© 2023 GOODLUCK MLAY. Released under MIT License.</p>
-    </footer>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head reveal">
+      <span class="kicker">Skills</span>
+      <h2>Tools & technologies</h2>
+      <p>My current stack and focus areas. Always learning, always iterating.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card skill-card reveal">
+        <h3>Frontend</h3>
+        <ul class="skill-list">
+          <li>HTML5 / CSS3 / Sass <span class="level">Expert</span></li>
+          <li>JavaScript (ES6+) <span class="level">Advanced</span></li>
+          <li>React / Next.js <span class="level">Advanced</span></li>
+          <li>Accessibility (WCAG) <span class="level">Advanced</span></li>
+        </ul>
+      </div>
+      <div class="card skill-card reveal">
+        <h3>Backend</h3>
+        <ul class="skill-list">
+          <li>Node.js / Express <span class="level">Advanced</span></li>
+          <li>Python / Django <span class="level">Intermediate</span></li>
+          <li>REST / GraphQL <span class="level">Advanced</span></li>
+          <li>PostgreSQL / MongoDB <span class="level">Intermediate</span></li>
+        </ul>
+      </div>
+      <div class="card skill-card reveal">
+        <h3>DevOps & Tooling</h3>
+        <ul class="skill-list">
+          <li>Git / GitHub <span class="level">Expert</span></li>
+          <li>CI/CD (GitHub Actions) <span class="level">Advanced</span></li>
+          <li>Docker <span class="level">Intermediate</span></li>
+          <li>Cloud (AWS/GCP) <span class="level">Intermediate</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="section-head reveal">
+      <span class="kicker">Contact</span>
+      <h2>Let’s build something</h2>
+      <p>Open to collaborations, open-source contributions, and freelance opportunities.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="mailto:goodluck.mlay@example.com">📧 Email</a>
+      <a class="contact-link" href="https://github.com/goodluckmlay" target="_blank" rel="noopener">💻 GitHub</a>
+      <a class="contact-link" href="https://linkedin.com/in/goodluckmlay" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a class="contact-link" href="https://twitter.com/goodluckmlay" target="_blank" rel="noopener">🐦 Twitter</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2025 GOODLUCK MLAY. Built with ❤️ & open source.</p>
+      <p>Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a> · <a href="https://github.com/goodluckmlay/portfolio" target="_blank" rel="noopener">View Source</a></p>
+    </div>
+  </footer>
+
+  <!-- JS: smooth scroll + reveal -->
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
