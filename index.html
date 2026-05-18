@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- SEO -->
   <title>GOODLUCK MLAY | Graphic Designer & Developer</title>
   <meta name="description" content="GOODLUCK MLAY — Graphic Designer & Full Stack Developer. Creating high-performance digital experiences with brutalist precision." />
-  <meta name="keywords" content="GOODLUCK MLAY, luckboomin, Graphic Designer, Full Stack Developer, Open Source, Brutalist Design, UI/UX, Brand Identity" />
+  <meta name="keywords" content="GOODLUCK MLAY, luckboomin, Graphic Designer, Full Stack Developer, Open Source, Brutalist Design, UI/UX, Brand Identity, Typography, Motion Design" />
   <meta name="author" content="GOODLUCK MLAY" />
   <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://example.com/" />
+
+  <!-- Open Graph -->
   <meta property="og:title" content="GOODLUCK MLAY | Graphic Designer & Developer" />
   <meta property="og:description" content="Graphic Designer & Full Stack Developer. Creating high-performance digital experiences." />
   <meta property="og:type" content="website" />
@@ -21,10 +24,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "GOODLUCK MLAY",
+    "jobTitle": ["Graphic Designer", "Full Stack Developer"],
+    "url": "https://example.com/",
+    "sameAs": [
+      "https://instagram.com/luckboomin",
+      "https://github.com/goodluckmlay24-sys"
+    ]
+  }
+  </script>
+
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     /* ===== ROOT VARIABLES (KPR Verse Black System) ===== */
     :root {
       --bg: #000000;
@@ -42,6 +60,16 @@
 
     html { scroll-behavior: smooth; background: var(--bg); color-scheme: dark; }
 
+    /* Skip link (keyboard accessibility) */
+    .skip-link {
+      position: absolute; left: -999px; top: 10px;
+      background: var(--text); color: var(--bg);
+      padding: .7rem 1rem; font-family: var(--font-mono);
+      font-size: .7rem; z-index: 20000;
+      border: 1px solid var(--text);
+    }
+    .skip-link:focus { left: 10px; }
+
     @media (pointer: fine) {
       *, a, button, input, textarea { cursor: none !important; }
     }
@@ -55,10 +83,17 @@
       overflow-x: hidden;
       opacity: 0;
       transition: opacity 0.8s ease;
+      min-height: 100vh;
     }
     body.ready { opacity: 1; }
 
     a { color: inherit; text-decoration: none; }
+
+    /* Focus-visible (keyboard navigation) */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 1px solid var(--text);
+      outline-offset: 3px;
+    }
 
     /* ===== PRELOADER ===== */
     #loader {
@@ -80,7 +115,7 @@
     }
     .loader-bar-fill {
       height: 100%; width: 0%; background: var(--text);
-      transition: width 0.3s ease;
+      transition: width 0.25s ease;
     }
     @keyframes loadPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
 
@@ -152,7 +187,9 @@
     .mob-menu {
       position: fixed; inset: 0; z-index: 200; background: var(--bg);
       display: flex; flex-direction: column; padding: 5rem 2rem 2rem;
-      transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      border-right: 1px solid var(--border-strong);
     }
     .mob-menu.open { transform: translateX(0); }
     .mob-menu a {
@@ -168,9 +205,13 @@
     }
 
     /* ===== SYSTEM CONTAINER ===== */
-    .sys { max-width: 1440px; margin: 0 auto; border-left: 1px solid var(--border-strong); border-right: 1px solid var(--border-strong); }
+    main.sys {
+      max-width: 1440px; margin: 0 auto;
+      border-left: 1px solid var(--border-strong);
+      border-right: 1px solid var(--border-strong);
+    }
 
-    /* ===== HERO (KPR 2-Column + Side Strip) ===== */
+    /* ===== HERO ===== */
     .hero {
       min-height: 100vh; padding-top: 60px;
       display: grid; grid-template-columns: 50px 1.3fr 0.7fr;
@@ -202,22 +243,19 @@
       text-transform: uppercase; letter-spacing: -1px; margin-bottom: 2rem;
     }
     .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .btn-w {
+    .btn-w, .btn-o {
       font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1.5px; padding: 0.8rem 1.4rem;
-      border: 1px solid var(--text); background: var(--text); color: var(--bg);
-      transition: background 0.2s, color 0.2s; display: inline-flex;
-      align-items: center; gap: 0.5rem; text-decoration: none;
+      border: 1px solid var(--text);
+      transition: background 0.2s, color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none;
+      background: transparent; color: var(--text);
     }
+    .btn-w { background: var(--text); color: var(--bg); }
     .btn-w:hover { background: transparent; color: var(--text); }
-    .btn-o {
-      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px; padding: 0.8rem 1.4rem;
-      border: 1px solid var(--text); background: transparent; color: var(--text);
-      transition: background 0.2s, color 0.2s; display: inline-flex;
-      align-items: center; gap: 0.5rem; text-decoration: none;
-    }
     .btn-o:hover { background: var(--text); color: var(--bg); }
+
     .hero-right {
       padding: 4rem 3rem; display: flex; flex-direction: column;
       justify-content: center; background: var(--bg-alt);
@@ -275,7 +313,7 @@
     }
     .sect-desc { margin-top: 0.75rem; color: var(--text-muted); font-size: 0.92rem; max-width: 60ch; }
 
-    /* ===== ABOUT (KPR 2-Column Grid) ===== */
+    /* ===== ABOUT ===== */
     .about-grid {
       display: grid; grid-template-columns: 1fr 1.4fr; gap: 0;
       border: 1px solid var(--border);
@@ -305,6 +343,7 @@
       font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase; padding: 0.35rem 0.7rem;
       border: 1px solid var(--border); background: var(--bg-light);
+      display: inline-flex; align-items: center;
     }
     @media (max-width: 768px) {
       .about-grid { grid-template-columns: 1fr; }
@@ -314,21 +353,39 @@
 
     /* ===== KPR CARD FAN (Projects) ===== */
     .card-fan-wrapper {
-      position: relative; height: 480px; margin: 2rem 0;
+      position: relative; height: 520px; margin: 2rem 0;
       display: flex; align-items: center; justify-content: center;
     }
     .fan-card {
-      position: absolute; width: 220px; height: 300px;
+      position: absolute; width: 230px; height: 330px;
       background: var(--bg-card); border: 1px solid var(--border);
-      padding: 2rem 1.5rem; display: flex; flex-direction: column;
+      padding: 1.7rem 1.4rem;
+      display: flex; flex-direction: column;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
     }
-    .fan-card:nth-child(1) { transform: rotate(-18deg) translateX(-240px) scale(0.85); z-index: 1; opacity: 0.5; }
-    .fan-card:nth-child(2) { transform: rotate(-10deg) translateX(-120px) scale(0.92); z-index: 2; opacity: 0.7; }
+
+    /* KPR-style “preview tile” (graphic designer credibility) */
+    .card-thumb {
+      height: 110px;
+      border: 1px solid var(--border);
+      background: var(--bg-light);
+      margin-bottom: 1rem;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .fan-card:nth-child(1) { transform: rotate(-18deg) translateX(-260px) scale(0.85); z-index: 1; opacity: 0.55; }
+    .fan-card:nth-child(2) { transform: rotate(-10deg) translateX(-130px) scale(0.92); z-index: 2; opacity: 0.72; }
     .fan-card:nth-child(3) { transform: rotate(0deg) scale(1); z-index: 3; opacity: 1; }
-    .fan-card:nth-child(4) { transform: rotate(10deg) translateX(120px) scale(0.92); z-index: 2; opacity: 0.7; }
-    .fan-card:nth-child(5) { transform: rotate(18deg) translateX(240px) scale(0.85); z-index: 1; opacity: 0.5; }
+    .fan-card:nth-child(4) { transform: rotate(10deg) translateX(130px) scale(0.92); z-index: 2; opacity: 0.72; }
+    .fan-card:nth-child(5) { transform: rotate(18deg) translateX(260px) scale(0.85); z-index: 1; opacity: 0.55; }
+
     .fan-card:hover {
       transform: rotate(0deg) translateY(-20px) scale(1.05) !important;
       z-index: 10 !important; opacity: 1 !important;
@@ -336,56 +393,107 @@
     }
     .fan-card .fc-num {
       font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1rem;
+      letter-spacing: 2px; color: var(--text-muted); margin-bottom: 0.8rem;
     }
     .fan-card h3 {
-      font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
-      text-transform: uppercase; margin-bottom: 0.75rem; line-height: 1.1;
+      font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+      text-transform: uppercase; margin-bottom: 0.65rem; line-height: 1.1;
     }
     .fan-card p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; flex-grow: 1; }
-    .fan-card .tag { margin-top: 1rem; }
-    .fan-card a {
+
+    .card-meta { margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .card-action {
       font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px; margin-top: 1rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-top: 0.9rem;
       border-bottom: 1px solid var(--text); width: fit-content;
       padding-bottom: 2px; transition: opacity 0.2s;
+      background: transparent; color: inherit;
+      border-top: 0; border-left: 0; border-right: 0;
     }
-    .fan-card a:hover { opacity: 0.6; }
+    .card-action:hover { opacity: 0.6; }
+
     @media (max-width: 900px) {
       .card-fan-wrapper { height: auto; flex-direction: column; gap: 1rem; padding: 1rem; }
       .fan-card {
         position: relative !important; transform: none !important;
-        width: 100% !important; max-width: 400px; opacity: 1 !important;
+        width: 100% !important; max-width: 420px; opacity: 1 !important;
+        height: auto;
       }
     }
 
-    /* ===== SKILLS (KPR Grid) ===== */
+    /* ===== SKILLS (with subtle bars) ===== */
     .skills-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 0; border: 1px solid var(--border);
     }
-    .skill-block { padding: 2.5rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skill-block {
+      padding: 2.5rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
     .skill-block h3 {
       font-family: var(--font-display); font-weight: 800; font-size: 1rem;
       text-transform: uppercase; margin-bottom: 1.5rem;
       padding-bottom: 0.75rem; border-bottom: 1px solid var(--text);
     }
+
+    /* Turn each skill into a small “system line” like KPR */
     .skill-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
     }
     .skill-item:last-child { border-bottom: none; }
+
+    .skill-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+    .skill-name { color: var(--text); }
     .skill-lvl {
       font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.4rem;
       border: 1px solid var(--border); background: var(--bg-light);
+      flex-shrink: 0;
     }
+    .skill-bar {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      margin-top: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-bar > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--text);
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .skills-animate .skill-bar[data-pct="95"] > span { width: 95%; }
+    .skills-animate .skill-bar[data-pct="80"] > span { width: 80%; }
+    .skills-animate .skill-bar[data-pct="65"] > span { width: 65%; }
+    .skills-animate .skill-bar[data-pct="55"] > span { width: 55%; }
 
     /* ===== CONTACT ===== */
     .contact-grid {
       display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start;
     }
     @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .form-status {
+      display: none;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
     .c-form { display: flex; flex-direction: column; gap: 1.2rem; }
     .c-field label {
       font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase;
@@ -406,23 +514,29 @@
       width: 100%; transition: background 0.2s, color 0.2s;
     }
     .c-submit:hover { background: transparent; color: var(--text); }
+    .c-submit:disabled { opacity: 0.6; }
+
     .c-links {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      border-top: 1px solid var(--border); border-left: 1px solid var(--border));
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
     }
     .c-link {
       font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1.5px; padding: 1.5rem 0.8rem;
       border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
       display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-      transition: background 0.2s; background: var(--bg); text-align: center;
+      transition: background 0.2s;
+      background: var(--bg);
+      text-align: center;
     }
     .c-link svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.2s; }
     .c-link:hover { background: var(--bg-alt); }
     .c-link:hover svg { transform: scale(1.1); }
 
     /* ===== FOOTER ===== */
-    footer { border-top: 1px solid var(--border-strong); background: var(--bg); margin-top: auto; }
+    footer { border-top: 1px solid var(--border-strong); background: var(--bg); }
     .f-inner {
       max-width: 1440px; margin: 0 auto; display: grid;
       grid-template-columns: 50px 1fr 1fr;
@@ -450,19 +564,122 @@
       transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
     }
     .rev.vis { opacity: 1; transform: translateY(0); }
+
+    /* ===== MODALS (Case Studies) ===== */
+    .modal {
+      position: fixed; inset: 0;
+      z-index: 12000;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal.open { display: flex; }
+    .modal-panel {
+      width: min(980px, 100%);
+      max-height: 86vh;
+      overflow: auto;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+    }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 1rem;
+    }
+    .modal-close {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      padding: .6rem .8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .modal-body {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+    }
+    .modal-media {
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+    .modal-media svg { width: 100%; height: auto; max-height: 360px; opacity: 0.9; }
+    .modal-copy h4 {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .modal-copy h4 .sq { width: 6px; height: 6px; background: var(--text); display: inline-block; }
+    .modal-copy p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .modal-meta {
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+    @media (max-width: 900px) {
+      .modal-body { grid-template-columns: 1fr; }
+    }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .cur-dot, .cur-ring { display: none !important; }
+    }
+
+    /* ===== Print ===== */
+    @media print {
+      nav, .hero-strip, .sect-side, .mob-menu, .cur-dot, .cur-ring, #loader, .modal { display: none !important; }
+      body { background: #fff !important; color: #000 !important; opacity: 1 !important; }
+      main.sys, .f-inner { border: none !important; }
+      a { color: #000 !important; text-decoration: underline !important; }
+      .tag, .skill-lvl { border: 1px solid #000 !important; background: transparent !important; color: #000 !important; }
+    }
   </style>
 </head>
+
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
 
   <!-- PRELOADER -->
-  <div id="loader">
+  <div id="loader" aria-hidden="true">
     <div class="loader-name">GOODLUCK MLAY</div>
     <div class="loader-bar-track"><div class="loader-bar-fill" id="loaderBar"></div></div>
   </div>
 
   <!-- CURSOR -->
-  <div class="cur-dot" id="curDot"></div>
-  <div class="cur-ring" id="curRing"></div>
+  <div class="cur-dot" id="curDot" aria-hidden="true"></div>
+  <div class="cur-ring" id="curRing" aria-hidden="true"></div>
 
   <!-- NAV -->
   <nav>
@@ -480,57 +697,69 @@
         <li><a href="#contact"><span class="sq"></span> Contact</a></li>
       </ul>
       <div class="nav-cta">
-        <a href="https://github.com/goodluckmlay24-sys" target="_blank">VIEW CODE ↗</a>
+        <a href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer">VIEW CODE ↗</a>
       </div>
     </div>
   </nav>
 
   <!-- MOBILE MENU -->
-  <div class="mob-menu" id="mobMenu">
+  <div class="mob-menu" id="mobMenu" aria-hidden="true">
     <button class="mob-close" id="menuClose" aria-label="Close menu">&times;</button>
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#work">Work</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
-    <a href="https://github.com/goodluckmlay24-sys" target="_blank" style="font-family:var(--font-mono);font-size:1rem;">GitHub ↗</a>
+    <a href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer" style="font-family:var(--font-mono);font-size:1rem;">GitHub ↗</a>
   </div>
 
   <!-- SYSTEM -->
-  <div class="sys">
+  <main class="sys" id="content">
 
     <!-- HERO -->
     <section class="hero" id="home">
-      <div class="hero-strip"><span>PORTFOLIO // 2026</span></div>
+      <div class="hero-strip"><span>MWGE // PORTFOLIO // 2026</span></div>
       <div class="hero-left">
         <div class="hero-tag"><span class="sq"></span> 001 / IDENTITY</div>
         <h1>GRAPHIC DESIGNER &amp; OPEN SOURCE DEVELOPER.</h1>
         <div class="hero-btns">
           <a href="#work" class="btn-w">View Collection</a>
-          <a href="https://github.com/goodluckmlay24-sys" target="_blank" class="btn-o">GitHub ↗</a>
+          <a href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer" class="btn-o">GitHub ↗</a>
         </div>
       </div>
       <div class="hero-right">
         <div class="hero-label"><span class="sq"></span> Introduction</div>
-        <p class="hero-desc">Hi, I'm <strong>GOODLUCK MLAY</strong>. I design bold visual identities and build high-performance open-source web systems. Every pixel is intentional. Every line of code is transparent.</p>
+        <p class="hero-desc">
+          Hi, I'm <strong>GOODLUCK MLAY</strong>. I design bold visual identities and build high-performance open-source web systems.
+          Every pixel is intentional. Every line of code is transparent.
+        </p>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <div class="sect" id="about">
+    <section class="sect" id="about">
       <div class="sect-side"><span class="num">■ 002</span></div>
       <div class="sect-body">
         <div class="sect-hdr rev">
           <div class="sect-kicker"><span class="sq"></span> About</div>
           <h2 class="sect-title">DESIGN WITH PURPOSE. CODE WITH CLARITY.</h2>
-          <p class="sect-desc">Bridging the gap between visual storytelling and technical systems. I believe great design is invisible until it's unforgettable.</p>
+          <p class="sect-desc">
+            Bridging the gap between visual storytelling and technical systems. I believe great design is invisible until it's unforgettable.
+          </p>
         </div>
+
         <div class="about-grid rev">
           <div class="about-visual"><span class="initials">GML</span></div>
           <div class="about-text">
             <h3>Mission</h3>
-            <p>As a graphic designer turned developer, I approach every project with a visual-first mindset. From brand identities to brutalist web interfaces, I craft experiences that communicate with precision and impact.</p>
-            <p>I specialize in type-driven layouts, motion design systems, and open-source tools that empower other creatives. My work lives at the intersection of aesthetics and engineering.</p>
+            <p>
+              As a graphic designer turned developer, I approach every project with a visual-first mindset.
+              From brand identities to brutalist web interfaces, I craft experiences that communicate with precision and impact.
+            </p>
+            <p>
+              I specialize in type-driven layouts, motion design systems, and open-source tools that empower other creatives.
+              My work lives at the intersection of aesthetics and engineering.
+            </p>
             <div class="tags">
               <span class="tag">Brand Identity</span>
               <span class="tag">UI/UX Design</span>
@@ -542,137 +771,222 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- WORK (KPR Card Fan) -->
-    <div class="sect" id="work">
+    <!-- WORK (KPR Card Fan + interactive modals for design case studies) -->
+    <section class="sect" id="work">
       <div class="sect-side"><span class="num">■ 003</span></div>
       <div class="sect-body">
         <div class="sect-hdr rev">
           <div class="sect-kicker"><span class="sq"></span> Selected Works</div>
           <h2 class="sect-title">DESIGN + CODE COLLECTION.</h2>
-          <p class="sect-desc">A curated selection of projects spanning graphic design, brand systems, and open-source web development.</p>
+          <p class="sect-desc">
+            Design case studies open in-system (no dead links). Developer projects link to GitHub.
+          </p>
         </div>
-        <div class="card-fan-wrapper rev">
-          <div class="fan-card">
+
+        <div class="card-fan-wrapper rev" aria-label="Project collection">
+          <!-- 1) Design - modal -->
+          <article class="fan-card">
+            <div class="card-thumb">[ VISUAL PREVIEW ]</div>
             <div class="fc-num">■ P-001</div>
             <h3>Brand Identity System</h3>
-            <p>Complete visual identity package including logo, typography system, color palette, and brand guidelines.</p>
-            <span class="tag">Illustrator</span>
-            <span class="tag">Branding</span>
-            <a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source ↗</a>
-          </div>
-          <div class="fan-card">
+            <p>Logo, typography, color system, and brand rules — presented as a case study.</p>
+            <div class="card-meta">
+              <span class="tag">Illustrator</span>
+              <span class="tag">Branding</span>
+            </div>
+            <button class="card-action js-open-modal" data-modal="modal-brand" type="button">View Case ↗</button>
+          </article>
+
+          <!-- 2) Dev - GitHub -->
+          <article class="fan-card">
+            <div class="card-thumb">[ UI SYSTEM ]</div>
             <div class="fc-num">■ P-002</div>
             <h3>Brutalist Portfolio</h3>
-            <p>This KPR-inspired portfolio template. Pure HTML/CSS/JS, zero dependencies, fully open-source.</p>
-            <span class="tag">HTML5</span>
-            <span class="tag">CSS3</span>
-            <a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source ↗</a>
-          </div>
-          <div class="fan-card">
+            <p>KPR-inspired template. Pure HTML/CSS/JS. Open-source and fast.</p>
+            <div class="card-meta">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+            </div>
+            <a class="card-action" href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer">View Source ↗</a>
+          </article>
+
+          <!-- 3) Design - modal -->
+          <article class="fan-card">
+            <div class="card-thumb">[ TYPE STUDY ]</div>
             <div class="fc-num">■ P-003</div>
             <h3>Type Specimen Poster</h3>
-            <p>Experimental typography poster exploring brutalist letterforms and grid-based composition.</p>
-            <span class="tag">InDesign</span>
-            <span class="tag">Typography</span>
-            <a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source ↗</a>
-          </div>
-          <div class="fan-card">
+            <p>Experimental typography poster using brutal grid composition and contrast.</p>
+            <div class="card-meta">
+              <span class="tag">InDesign</span>
+              <span class="tag">Typography</span>
+            </div>
+            <button class="card-action js-open-modal" data-modal="modal-type" type="button">View Case ↗</button>
+          </article>
+
+          <!-- 4) Dev - GitHub -->
+          <article class="fan-card">
+            <div class="card-thumb">[ EDU TOOL ]</div>
             <div class="fc-num">■ P-004</div>
             <h3>WikiEdu Tool</h3>
-            <p>Interactive learning tool for Wikipedia editing guidelines through guided, hands-on exercises.</p>
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source ↗</a>
-          </div>
-          <div class="fan-card">
+            <p>Interactive learning tool for Wikipedia editing guidelines and markup practice.</p>
+            <div class="card-meta">
+              <span class="tag">Python</span>
+              <span class="tag">Flask</span>
+            </div>
+            <a class="card-action" href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer">View Source ↗</a>
+          </article>
+
+          <!-- 5) Design - modal -->
+          <article class="fan-card">
+            <div class="card-thumb">[ MOTION REEL ]</div>
             <div class="fc-num">■ P-005</div>
             <h3>Motion Reel</h3>
-            <p>Collection of animated brand reveals, UI micro-interactions, and kinetic typography experiments.</p>
-            <span class="tag">After Effects</span>
-            <span class="tag">Motion</span>
-            <a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source ↗</a>
-          </div>
+            <p>Kinetic type + brand reveals + micro-interactions — short reel breakdown.</p>
+            <div class="card-meta">
+              <span class="tag">After Effects</span>
+              <span class="tag">Motion</span>
+            </div>
+            <button class="card-action js-open-modal" data-modal="modal-motion" type="button">View Case ↗</button>
+          </article>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- SKILLS -->
-    <div class="sect" id="skills">
+    <section class="sect" id="skills">
       <div class="sect-side"><span class="num">■ 004</span></div>
       <div class="sect-body">
         <div class="sect-hdr rev">
           <div class="sect-kicker"><span class="sq"></span> Skills</div>
           <h2 class="sect-title">DESIGN &amp; DEVELOPMENT STACK.</h2>
-          <p class="sect-desc">My creative and technical toolkit. Always iterating, always learning.</p>
+          <p class="sect-desc">Subtle “system bars” animate when this section becomes visible.</p>
         </div>
-        <div class="skills-grid rev">
+
+        <div class="skills-grid rev" id="skillsGrid">
           <div class="skill-block">
             <h3>Design</h3>
-            <div class="skill-item">Adobe Photoshop <span class="skill-lvl">Expert</span></div>
-            <div class="skill-item">Adobe Illustrator <span class="skill-lvl">Expert</span></div>
-            <div class="skill-item">Figma / UI Design <span class="skill-lvl">Advanced</span></div>
-            <div class="skill-item">After Effects / Motion <span class="skill-lvl">Advanced</span></div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Adobe Photoshop</span><span class="skill-lvl">Expert</span></div>
+              <div class="skill-bar" data-pct="95"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Adobe Illustrator</span><span class="skill-lvl">Expert</span></div>
+              <div class="skill-bar" data-pct="95"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Figma / UI Design</span><span class="skill-lvl">Advanced</span></div>
+              <div class="skill-bar" data-pct="80"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">After Effects / Motion</span><span class="skill-lvl">Advanced</span></div>
+              <div class="skill-bar" data-pct="80"><span></span></div>
+            </div>
           </div>
+
           <div class="skill-block">
             <h3>Development</h3>
-            <div class="skill-item">HTML5 / CSS3 / Sass <span class="skill-lvl">Expert</span></div>
-            <div class="skill-item">JavaScript (ES6+) <span class="skill-lvl">Advanced</span></div>
-            <div class="skill-item">React / Next.js <span class="skill-lvl">Advanced</span></div>
-            <div class="skill-item">Python / Django <span class="skill-lvl">Intermediate</span></div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">HTML5 / CSS3 / Sass</span><span class="skill-lvl">Expert</span></div>
+              <div class="skill-bar" data-pct="95"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">JavaScript (ES6+)</span><span class="skill-lvl">Advanced</span></div>
+              <div class="skill-bar" data-pct="80"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">React / Next.js</span><span class="skill-lvl">Advanced</span></div>
+              <div class="skill-bar" data-pct="80"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Python / Django</span><span class="skill-lvl">Intermediate</span></div>
+              <div class="skill-bar" data-pct="65"><span></span></div>
+            </div>
           </div>
+
           <div class="skill-block">
             <h3>Systems &amp; Tools</h3>
-            <div class="skill-item">Git / GitHub <span class="skill-lvl">Expert</span></div>
-            <div class="skill-item">Brand Strategy <span class="skill-lvl">Advanced</span></div>
-            <div class="skill-item">Typography Systems <span class="skill-lvl">Expert</span></div>
-            <div class="skill-item">CI/CD / DevOps <span class="skill-lvl">Intermediate</span></div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Git / GitHub</span><span class="skill-lvl">Expert</span></div>
+              <div class="skill-bar" data-pct="95"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Brand Strategy</span><span class="skill-lvl">Advanced</span></div>
+              <div class="skill-bar" data-pct="80"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">Typography Systems</span><span class="skill-lvl">Expert</span></div>
+              <div class="skill-bar" data-pct="95"><span></span></div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-row"><span class="skill-name">CI/CD / DevOps</span><span class="skill-lvl">Intermediate</span></div>
+              <div class="skill-bar" data-pct="55"><span></span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- CONTACT -->
-    <div class="sect" id="contact">
+    <section class="sect" id="contact">
       <div class="sect-side"><span class="num">■ 005</span></div>
       <div class="sect-body">
         <div class="sect-hdr rev">
           <div class="sect-kicker"><span class="sq"></span> Contact</div>
           <h2 class="sect-title">LET'S BUILD SOMETHING.</h2>
-          <p class="sect-desc">Open for design collaborations, freelance projects, and open-source contributions.</p>
+          <p class="sect-desc">Form is now AJAX + shows success/failure feedback (no silent submits).</p>
         </div>
+
         <div class="contact-grid rev">
-          <form class="c-form" action="https://formspree.io/f/xyygnwge" method="POST">
+          <form class="c-form" id="contactForm" action="https://formspree.io/Goodluck Mlay" method="POST">
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
             <div class="c-field">
               <label for="cName">Your Name</label>
-              <input type="text" id="cName" name="name" required placeholder="ENTER NAME" />
+              <input type="text" id="cName" name="name" required placeholder="ENTER NAME" autocomplete="name" />
             </div>
             <div class="c-field">
               <label for="cEmail">Your Email</label>
-              <input type="email" id="cEmail" name="email" required placeholder="ENTER EMAIL" />
+              <input type="email" id="cEmail" name="email" required placeholder="ENTER EMAIL" autocomplete="email" />
             </div>
             <div class="c-field">
               <label for="cMsg">Message</label>
-              <textarea id="cMsg" name="message" required placeholder="INITIALIZE CONVERSATION..."></textarea>
+              <textarea id="cMsg" name="message" required placeholder="INITIALIZE CONVERSATION..." rows="5"></textarea>
             </div>
-            <button type="submit" class="c-submit">TRANSMIT MESSAGE</button>
+            <button type="submit" class="c-submit" id="submitBtn">TRANSMIT MESSAGE</button>
           </form>
+
           <div>
-            <div class="c-links">
+            <div class="c-links" aria-label="Social links">
               <a href="mailto:goodluckmlay24@gmail.com" class="c-link">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 <span>Email</span>
               </a>
-              <a href="https://github.com/goodluckmlay24-sys" target="_blank" class="c-link">
+
+              <a href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer" class="c-link">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12c0-5.523-4.477-10-10-10z"/></svg>
                 <span>GitHub</span>
               </a>
-              <a href="https://instagram.com/luckboomin" target="_blank" class="c-link">
+
+              <a href="https://instagram.com/luckboomin" target="_blank" rel="noopener noreferrer" class="c-link">
                 <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 <span>Instagram</span>
               </a>
-              <a href="https://wa.me/255779043297" target="_blank" class="c-link">
+
+              <a href="https://wa.me/255779043297" target="_blank" rel="noopener noreferrer" class="c-link">
                 <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.731-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.01 14.069.99 11.999.99c-5.442 0-9.866 4.372-9.87 9.802 0 1.704.457 3.332 1.321 4.8l-.299 1.093-.728 2.658 2.735-.71 1.08-.28c1.5.88 3.1 1.34 4.81 1.34zm12.524-8.082c-.3-.15-1.771-.865-2.046-.964-.275-.1-.475-.15-.675.15-.2.3-.775.964-.95 1.163-.175.2-.35.225-.65.075-3.512-1.725-4.57-2.85-5.144-3.825-.15-.25-.015-.385.12-.52.121-.121.275-.32.412-.48.137-.16.183-.275.275-.46.091-.18.046-.34-.023-.49-.069-.15-.675-1.605-.925-2.2-.243-.584-.49-.5-.675-.51-.174-.01-.374-.01-.574-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.01-1.05 2.47 0 1.46 1.075 2.87 1.225 3.07.15.2 2.115 3.19 5.09 4.46 1.77.76 2.47.85 3.35.69.576-.1 1.771-.715 2.021-1.4.25-.685.25-1.275.175-1.4-.075-.125-.275-.2-.575-.35z"/></svg>
                 <span>WhatsApp</span>
               </a>
@@ -680,65 +994,304 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="f-inner">
       <div class="f-side"></div>
-      <div class="f-col">&copy; 2026 GOODLUCK MLAY — Licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>.</div>
-      <div class="f-col"><a href="https://github.com/goodluckmlay24-sys" target="_blank">View Source Code ↗</a></div>
+      <div class="f-col">
+        &copy; 2026 GOODLUCK MLAY — Licensed under
+        <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT</a>.
+      </div>
+      <div class="f-col">
+        <a href="https://github.com/goodluckmlay24-sys" target="_blank" rel="noopener noreferrer">View Source Code ↗</a>
+      </div>
     </div>
   </footer>
 
+  <!-- ===== MODALS (Design case studies; same page => no “page not found”) ===== -->
+  <div class="modal" id="modal-brand" role="dialog" aria-modal="true" aria-labelledby="modal-brand-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title" id="modal-brand-title">Brand Identity System</div>
+        <button class="modal-close js-close-modal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media" aria-label="Brand identity preview">
+          <!-- Placeholder SVG preview (replace with your real images later) -->
+          <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="420" fill="#0b0b0b"/>
+            <rect x="50" y="60" width="700" height="300" fill="none" stroke="rgba(255,255,255,0.18)" />
+            <text x="70" y="120" fill="rgba(255,255,255,0.85)" font-family="Space Mono, monospace" font-size="18">■ IDENTITY GRID</text>
+            <text x="70" y="160" fill="rgba(255,255,255,0.55)" font-family="DM Sans, sans-serif" font-size="16">Logo / Type / Color / Rules</text>
+            <text x="70" y="300" fill="rgba(255,255,255,0.35)" font-family="Space Mono, monospace" font-size="14">Replace with real mockups</text>
+          </svg>
+        </div>
+        <div class="modal-copy">
+          <h4><span class="sq"></span> Overview</h4>
+          <p>
+            A complete identity system built for clarity and consistency: logotype, typography rules, color palette, and layout guidance.
+            Designed for digital-first applications and scalable brand assets.
+          </p>
+          <h4><span class="sq"></span> Deliverables</h4>
+          <p>
+            Logo suite, spacing rules, typography hierarchy, color contrast checks, social templates, and a short brand guide.
+          </p>
+          <div class="modal-meta">
+            <span class="tag">Branding</span>
+            <span class="tag">Typography</span>
+            <span class="tag">Grid System</span>
+            <span class="tag">Visual Standards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-type" role="dialog" aria-modal="true" aria-labelledby="modal-type-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title" id="modal-type-title">Type Specimen Poster</div>
+        <button class="modal-close js-close-modal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media" aria-label="Typography poster preview">
+          <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="420" fill="#0b0b0b"/>
+            <line x1="60" y1="70" x2="740" y2="70" stroke="rgba(255,255,255,0.15)"/>
+            <line x1="60" y1="350" x2="740" y2="350" stroke="rgba(255,255,255,0.15)"/>
+            <text x="60" y="160" fill="rgba(255,255,255,0.85)" font-family="Syne, sans-serif" font-size="96" font-weight="800">TYPE</text>
+            <text x="60" y="240" fill="rgba(255,255,255,0.55)" font-family="Space Mono, monospace" font-size="18">BRUTAL GRID / CONTRAST / RHYTHM</text>
+          </svg>
+        </div>
+        <div class="modal-copy">
+          <h4><span class="sq"></span> Concept</h4>
+          <p>
+            A grid-led poster exploring brutalist rhythm, spacing, and type weight hierarchy. Built to communicate tone using only typography and structure.
+          </p>
+          <h4><span class="sq"></span> Notes</h4>
+          <p>
+            This format is ideal for showcasing your craft: include iterations (v1, v2, v3), then the final export.
+          </p>
+          <div class="modal-meta">
+            <span class="tag">Typography</span>
+            <span class="tag">Composition</span>
+            <span class="tag">Print</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-motion" role="dialog" aria-modal="true" aria-labelledby="modal-motion-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div class="modal-title" id="modal-motion-title">Motion Reel</div>
+        <button class="modal-close js-close-modal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media" aria-label="Motion reel preview">
+          <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="420" fill="#0b0b0b"/>
+            <rect x="60" y="90" width="680" height="240" fill="none" stroke="rgba(255,255,255,0.18)"/>
+            <polygon points="370,190 370,250 440,220" fill="rgba(255,255,255,0.6)"/>
+            <text x="60" y="60" fill="rgba(255,255,255,0.85)" font-family="Space Mono, monospace" font-size="16">■ MOTION / KINETIC TYPE</text>
+          </svg>
+        </div>
+        <div class="modal-copy">
+          <h4><span class="sq"></span> What to add next</h4>
+          <p>
+            Replace this placeholder with your reel (YouTube/Vimeo) or a GIF preview.
+            Then add a short breakdown: brief → approach → keyframes/curves → final.
+          </p>
+          <h4><span class="sq"></span> Tools</h4>
+          <p>
+            After Effects, compositing fundamentals, timing/spacing, and typography motion principles.
+          </p>
+          <div class="modal-meta">
+            <span class="tag">Motion Design</span>
+            <span class="tag">Kinetic Type</span>
+            <span class="tag">Micro-Interactions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SCRIPTS -->
   <script>
-    // Loader
+    // ===== Loader =====
     window.addEventListener('DOMContentLoaded', () => {
       const bar = document.getElementById('loaderBar');
       let p = 0;
+
       const iv = setInterval(() => {
-        p += Math.random() * 20 + 8;
+        p += Math.random() * 18 + 10;
         if (p >= 100) {
-          p = 100; clearInterval(iv);
+          p = 100;
+          clearInterval(iv);
           setTimeout(() => {
             document.getElementById('loader').classList.add('hidden');
             document.body.classList.add('ready');
-          }, 300);
+          }, 260);
         }
         bar.style.width = p + '%';
-      }, 80);
+      }, 85);
     });
 
-    // Cursor
+    // ===== Cursor =====
     const dot = document.getElementById('curDot');
     const ring = document.getElementById('curRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
-    (function anim() { rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
-    document.querySelectorAll('a, button, input, textarea, .hamburger, .mob-close').forEach(el => {
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+    });
+
+    (function anim() {
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(anim);
+    })();
+
+    const hoverTargets = 'a, button, input, textarea, .hamburger, .mob-close, .fan-card';
+    document.querySelectorAll(hoverTargets).forEach(el => {
       el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
       el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover'); });
     });
 
-    // Mobile Menu
+    // ===== Mobile Menu =====
     const mob = document.getElementById('mobMenu');
-    document.getElementById('menuOpen').addEventListener('click', () => { mob.classList.add('open'); document.body.style.overflow = 'hidden'; });
-    document.getElementById('menuClose').addEventListener('click', () => { mob.classList.remove('open'); document.body.style.overflow = ''; });
-    mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mob.classList.remove('open'); document.body.style.overflow = ''; }));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { mob.classList.remove('open'); document.body.style.overflow = ''; } });
+    const openBtn = document.getElementById('menuOpen');
+    const closeBtn = document.getElementById('menuClose');
 
-    // Reveal
-    const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    function openMenu() {
+      mob.classList.add('open');
+      mob.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mob.classList.remove('open');
+      mob.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    mob.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        closeAllModals();
+      }
+    });
+
+    // ===== Reveal + Skills bars =====
+    const skillsGrid = document.getElementById('skillsGrid');
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('vis');
+          // When skills grid becomes visible, trigger bar widths.
+          if (entry.target === skillsGrid) {
+            skillsGrid.classList.add('skills-animate');
+          }
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
     document.querySelectorAll('.rev').forEach(el => obs.observe(el));
 
-    // Smooth Scroll
+    // ===== Smooth Scroll =====
     document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
-      const t = document.querySelector(this.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      const href = this.getAttribute('href');
+      const t = document.querySelector(href);
+      if (t) {
+        e.preventDefault();
+        closeMenu();
+        t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }));
+
+    // ===== Formspree AJAX + feedback =====
+    const form = document.getElementById('contactForm');
+    const statusBox = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      statusBox.style.display = 'block';
+      statusBox.style.borderColor = 'rgba(255,255,255,0.14)';
+      statusBox.textContent = 'TRANSMITTING...';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'TRANSMITTING...';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!res.ok) throw new Error('Network error');
+
+        statusBox.style.borderColor = 'rgba(255,255,255,0.35)';
+        statusBox.textContent = '✓ MESSAGE TRANSMITTED';
+        form.reset();
+      } catch (err) {
+        statusBox.style.borderColor = 'rgba(255,255,255,0.35)';
+        statusBox.textContent = '✗ TRANSMISSION FAILED — TRY AGAIN';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'TRANSMIT MESSAGE';
+        setTimeout(() => { statusBox.style.display = 'none'; }, 5000);
+      }
+    });
+
+    // ===== Modals (design case studies) =====
+    const openModalButtons = document.querySelectorAll('.js-open-modal');
+    const closeModalButtons = document.querySelectorAll('.js-close-modal');
+
+    function openModalById(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('open');
+      // lock page scroll
+      document.body.style.overflow = 'hidden';
+      // focus close button for keyboard users
+      const close = modal.querySelector('.js-close-modal');
+      if (close) close.focus();
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+      // restore page scroll only if menu is not open
+      if (!mob.classList.contains('open')) document.body.style.overflow = '';
+    }
+
+    openModalButtons.forEach(btn => {
+      btn.addEventListener('click', () => openModalById(btn.dataset.modal));
+    });
+
+    closeModalButtons.forEach(btn => btn.addEventListener('click', closeAllModals));
+
+    // click outside panel closes
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeAllModals();
+      });
+    });
   </script>
 </body>
 </html>
